@@ -1,0 +1,466 @@
+{% set name = "jasp" %}
+{% set version = "0.14.1.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/jasp-stats/jasp-desktop/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: b71eed29ce631d0a9c19004fec75f528105d75e3b1957a781d1c19ef28559be0
+
+build:
+  number: 0
+  skip: true  # [not linux]
+  rpaths:
+    - lib/
+    - lib/R/lib/
+    - lib/R/library/Rcpp/libs/
+    - lib/R/library/RInside/lib/
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - make
+    - sed
+    - rsync
+    - pkg-config
+    # - sysroot_linux-64 2.17  # [linux64]
+    - {{ cdt('expat-devel') }}  # [linux]
+    - {{ cdt('libxfixes-devel') }}  # [linux]
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - {{ cdt('mesa-dri-drivers') }}  # [linux]
+    - {{ cdt('libselinux') }}  # [linux]
+    - {{ cdt('libxdamage') }}  # [linux]
+    - {{ cdt('libxdamage-devel') }}  # [linux]    
+    - {{ cdt('libxxf86vm') }}  # [linux]
+    - {{ cdt('libxxf86vm-devel') }}  # [linux]
+    - {{ cdt('libxext') }}     # [linux]
+    - {{ cdt('libxcb') }}  # [linux]
+    - {{ cdt('libxau') }}  # [linux]
+    - {{ cdt('libxscrnsaver') }}  # [linux]
+    - {{ cdt('libxscrnsaver-devel') }}  # [linux]
+    - {{ cdt('libxcomposite') }}  # [linux]
+    - {{ cdt('libxcomposite-devel') }}  # [linux]
+    - {{ cdt('libxi') }}  # [linux]
+    - {{ cdt('libxi-devel') }}  # [linux]
+    - {{ cdt('libxtst') }}  # [linux]
+    - {{ cdt('libxtst-devel') }}  # [linux]
+    - {{ cdt('pciutils-devel') }}  # [linux]
+    - {{ cdt('pciutils-libs') }}  # [linux]
+    - {{ cdt('libxcursor-devel') }}  # [linux]
+    - {{ cdt('libxcursor') }}  # [linux]
+  host:
+    # - sysroot_linux-64 2.17  # [linux64]
+    ## shouldn't need this in host, but can't find libGL.so otherwise
+    - {{ cdt('mesa-libgl-devel') }}  # [linux]
+    - expat  # [linux]
+    - xorg-libxfixes  # [linux]
+    - xorg-libxdamage  # [linux]
+    - xorg-libxext  # [linux]
+    - xorg-libxcb  # [linux]
+    - xorg-libxau  # [linux]
+    - xorg-libxscrnsaver  # [linux]
+    - xorg-libxcomposite  # [linux]
+    - xorg-libxi  # [linux]
+    - xorg-libxtst  # [linux]
+    - xorg-libxcursor  # [linux]
+    - boost
+    - libarchive
+    - qt
+    - readstat
+    - r-base
+    - r-bh
+    - r-r6
+    - r-devtools
+    - r-ggplot2
+    - r-gridextra
+    - r-gtable
+    - r-jsonlite
+    - r-rcolorbrewer
+    - r-rlang
+    - r-scales
+    - r-stringr
+    - r-viridislite    
+    - r-rcpp
+    - r-rinside
+    - r-kknn
+    - tk
+  run:
+    - boost
+    - readstat    
+    - r-base
+    - r-rcpp
+    - r-rinside
+    - r-gridgraphics
+    - r-renv
+    - r-ragg
+    - r-bdgraph
+    - r-bh
+    - r-bayesfactor
+    - r-brobdingnag
+    - r-dbi
+    - r-deoptimr
+    - r-dt
+    - r-epi
+    - r-formula
+    - r-gparotation
+    - r-genenet
+    - r-hdinterval
+    - r-hmisc
+    - r-kernsmooth
+    - r-laplacesdemon
+    - r-mass
+    - r-mcmcpack
+    - r-mglm
+    - r-matrix
+    - r-matrixmodels
+    - r-openmx
+    - r-r.matlab
+    - r-r.methodss3
+    - r-r.oo
+    - r-r.utils
+    - r-r6
+    - r-rcolorbrewer
+    - r-rocr
+    - r-runit
+    - r-rcpp
+    - r-rcpparmadillo
+    - r-rcppeigen
+    - r-rcppparallel
+    - r-rcsdp
+    - r-rdpack
+    - r-rsolnp
+    - r-rtsne
+    - r-sparsem
+    - r-stanheaders
+    - r-suppdists
+    - r-th.data
+    - r-ttr
+    - r-vgam
+    - r-xml
+    - r-abind
+    - r-acepack
+    - r-afex
+    - r-arm
+    - r-askpass
+    - r-assertthat
+    - r-backports
+    - r-base
+    - r-base64enc
+    - r-bayesplot
+    - r-beeswarm
+    - r-bibtex
+    - r-bitops
+    - r-boot
+    - r-bridgesampling
+    - r-broom
+    - r-ca
+    - r-catools
+    - r-callr
+    - r-car
+    - r-cardata
+    - r-cellranger
+    - r-checkmate
+    - r-class
+    - r-cli
+    - r-clipr
+    - r-cluster
+    - r-cmprsk
+    - r-coda
+    - r-codetools
+    - r-coin
+    - r-colorspace
+    - r-colourpicker
+    - r-conquer
+    - r-contfrac
+    - r-corpcor
+    - r-corrplot
+    - r-cowplot
+    - r-crayon
+    - r-crosstalk
+    - r-curl
+    - r-d3network
+    - r-data.table
+    - r-dbscan
+    - r-desolve
+    - r-desc
+    - r-digest
+    - r-diptest
+    - r-doparallel
+    - r-dosnow
+    - r-dplyr
+    - r-dygraphs
+    - r-e1071
+    - r-ellipse
+    - r-ellipsis
+    - r-elliptic
+    - r-emmeans
+    - r-estimability
+    - r-etm
+    - r-evaluate
+    - r-extradistr
+    - r-fansi
+    - r-farver
+    - r-fastmap
+    - r-fdrtool
+    - r-fitdistrplus
+    - r-flexmix
+    - r-forcats
+    - r-foreach
+    - r-foreign
+    - r-fpc
+    - r-gbrd
+    - r-gbm
+    - r-gdata
+    - r-gdtools
+    - r-generics
+    - r-ggextra
+    - r-ggbeeswarm
+    - r-ggdendro
+    - r-ggm
+    - r-ggplot2
+    - r-ggrepel
+    - r-ggridges
+    - r-ggsci
+    - r-glasso
+    - r-glmnet
+    - r-glue
+    - r-gnm
+    - r-goftest
+    - r-gplots
+    - r-gridextra
+    - r-gtable
+    - r-gtools
+    - r-haven
+    - r-heplots
+    - r-hexbin
+    - r-highr
+    - r-hms
+    - r-htmltable
+    - r-htmltools
+    - r-htmlwidgets
+    - r-httpuv
+    - r-huge
+    - r-hypergeo
+    - r-igraph
+    - r-inline
+    - r-invgamma
+    - r-isoband
+    - r-iterators
+    - r-jmvcore
+    - r-jomo
+    - r-jpeg
+    - r-jsonlite
+    - r-kernlab
+    - r-kknn
+    - r-knitr
+    - r-labeling
+    - r-later
+    - r-lattice
+    - r-latticeextra
+    - r-lavaan
+    - r-lazyeval
+    - r-libcoin
+    - r-lifecycle
+    - r-lme4
+    - r-lmertest
+    - r-lmtest
+    - r-logspline
+    - r-longitudinal
+    - r-loo
+    - r-lsei
+    - r-magrittr
+    - r-maptools
+    - r-markdown
+    - r-matrixstats
+    - r-matrixcalc
+    - r-mclust
+    - r-mcmc
+    - r-metabma
+    - r-metafor
+    - r-mgcv
+    - r-mi
+    - r-mice
+    - r-mime
+    - r-miniui
+    - r-minqa
+    - r-mitml
+    - r-mitools
+    - r-mnormt
+    - r-modeltools
+    - r-moments
+    - r-multcomp
+    - r-munsell
+    - r-mvtnorm
+    - r-nlme
+    - r-nloptr
+    - r-nnet
+    - r-nnls
+    - r-nortest
+    - r-npsurv
+    - r-numderiv
+    - r-officer
+    - r-openssl
+    - r-openxlsx
+    - r-ordinal
+    - r-packrat
+    - r-pan
+    - r-parcor
+    - r-party
+    - r-pbapply
+    - r-pbivnorm
+    - r-pbkrtest
+    - r-pillar
+    - r-pkgbuild
+    - r-pkgconfig
+    - r-plotrix
+    - r-plyr
+    - r-png
+    - r-polynom
+    - r-ppcor
+    - r-ppls
+    - r-prabclus
+    - r-prettyunits
+    - r-processx
+    - r-progress
+    - r-promises
+    - r-ps
+    - r-psych
+    - r-purrr
+    - r-pwr
+    - r-quadprog
+    - r-quantmod
+    - r-quantreg
+    - r-qvcalc
+    - r-randomforest
+    - r-readr
+    - r-readxl
+    - r-relaimpo
+    - r-relimp
+    - r-rematch
+    - r-remotes
+    - r-reshape2
+    - r-rio
+    - r-rjags
+    - r-rjson
+    - r-rlang
+    - r-robustbase
+    - r-rpart
+    - r-rprojroot
+    - r-rsconnect
+    - r-rstan
+    - r-rstanarm
+    - r-rstantools
+    - r-rstudioapi
+    - r-rvg
+    - r-sandwich
+    - r-scales
+    - r-sem
+    - r-semtools
+    - r-sfsmisc
+    - r-shape
+    - r-shiny
+    - r-shinyjs
+    - r-shinystan
+    - r-shinythemes
+    - r-signal
+    - r-sn
+    - r-snow
+    - r-som
+    - r-sourcetools
+    - r-sp
+    - r-spatial
+    - r-statmod
+    - r-stringi
+    - r-stringr
+    - r-strucchange
+    - r-survey
+    - r-survival
+    - r-svglite
+    - r-sys
+    - r-systemfonts
+    - r-threejs
+    - r-tibble
+    - r-tidyr
+    - r-tidyselect
+    - r-truncnorm
+    - r-tseries
+    - r-ucminf
+    - r-utf8
+    - r-uuid
+    - r-vcd
+    - r-vcdextra
+    - r-vctrs
+    - r-vipor
+    - r-viridis
+    - r-viridislite
+    - r-visnetwork
+    - r-weights
+    - r-whisker
+    - r-withr
+    - r-wordcloud
+    - r-xfun
+    - r-xml2
+    - r-xtable
+    - r-xts
+    - r-yaml
+    - r-zeallot
+    - r-zip
+    - r-zoo
+    ## not yet available on conda-forge
+    ## - r-bms
+    ## - r-bsda
+    ## - r-bayesrel
+    ## - r-dpq
+    ## - r-isingfit
+    ## - r-isingsampler
+    ## - r-networkcomparisontest
+    ## - r-networktoolbox
+    ## - r-robma
+    ## - r-toster
+    ## - r-abtest
+    ## - r-bain
+    ## - r-bootnet
+    ## - r-bstats
+    ## - r-candisc
+    ## - r-cocor
+    ## - r-compiler
+    ## - r-conting
+    ## - r-eigenmodel
+    ## - r-flexplot
+    ## - r-ggpol
+    ## - r-graphicalvar
+    ## - r-hmeasure
+    ## - r-jfa
+    ## - r-kutils
+    ## - r-lisreltor
+    ## - r-mdscore
+    ## - r-mgm
+    ## - r-modules
+    ## - r-networktools
+    ## - r-onewaytests
+    ## - r-psychtools
+    ## - r-qgraph
+    ## - r-regsem
+    ## - r-rockchalk
+    ## - r-runjags
+    ## - r-semplot
+    ## - r-smacof
+    ## - r-stanova
+    ## - r-wto
+    ## - r-weightr    
+test:
+  commands:
+    - test -f $PREFIX/bin/jasp
+
+about:
+  home: http://jasp-stats.org/
+  license: AGPL-3.0-only
+  license_file: COPYING.txt
+  summary: 'A fresh way to do statistics'
+
+extra:
+  recipe-maintainers:
+    - izahn

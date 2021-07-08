@@ -1,0 +1,4 @@
+conda_forge_output_validation: true
+## need cos7, otherwise /x86_64-conda-linux-gnu/sysroot/usr/lib64/libglapi.so.0: undefined reference to `security_get_boolean_pending'
+os_version:
+  linux_64: cos7
